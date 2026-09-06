@@ -1,0 +1,43 @@
+name: Tranche V Lean Gate
+
+on:
+  push:
+    branches:
+      - tranche-v-me036-037-20260906
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install elan
+        shell: bash
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Resolve dependencies
+        shell: bash
+        run: |
+          lake update
+
+      - name: Build project
+        shell: bash
+        run: |
+          lake build
+
+      - name: Compile ME-036/037 repair directly
+        shell: bash
+        run: |
+          lake env lean TrancheV_ME036_037_Repair.lean
+
+      - name: Proof-hole audit
+        shell: bash
+        run: |
+          if grep -RInE '\bsorry\b|\badmit\b|^[[:space:]]*axiom\b' --include='*.lean' .; then
+            echo 'Proof hole or explicit axiom detected.'
+            exit 1
+          fi
