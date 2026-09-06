@@ -1,0 +1,25 @@
+name: Lean recovery gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned dependencies
+        run: lake update
+      - name: Full build
+        run: lake build
+      - name: Proof-hole audit
+        run: |
+          if grep -RInE '\bsorry\b|\badmit\b|^[[:space:]]*axiom\b' --include='*.lean' Monolithic102; then
+            echo "Proof hole or explicit axiom found"
+            exit 1
+          fi
