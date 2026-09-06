@@ -14,7 +14,7 @@ operators and assumptions are frozen.
 abbrev Scalar := ℝ
 
 namespace ME025
-def coherencePotential (a b Φ : ℝ) : ℝ := (a / 4) * Φ^4 - (b / 2) * Φ^2
+noncomputable def coherencePotential (a b Φ : ℝ) : ℝ := (a / 4) * Φ^4 - (b / 2) * Φ^2
 end ME025
 
 namespace ME029
@@ -32,11 +32,12 @@ end ME042
 namespace ME043
 noncomputable def scalar46 : ℝ := ME041.phi ^ (46 : Nat)
 theorem scalar46_eq_scalar23_sq : scalar46 = ME042.scalar23 ^ 2 := by
-  simp [scalar46, ME042.scalar23, pow_mul]
+  change ME041.phi ^ 46 = (ME041.phi ^ 23) ^ 2
+  rw [show (46 : Nat) = 23 * 2 by norm_num, pow_mul]
 end ME043
 
 namespace ME047
-def recursiveCoherence (x m eps : ℝ) : ℝ := 1 - |x - m| / (|x| + |m| + eps)
+noncomputable def recursiveCoherence (x m eps : ℝ) : ℝ := 1 - |x - m| / (|x| + |m| + eps)
 end ME047
 
 namespace ME049
@@ -44,7 +45,7 @@ def contextualCoherence (dEdT C : ℝ) : ℝ := dEdT * C
 end ME049
 
 namespace ME050
-def entropicHarmonyGradient (deltaS deltaI H : ℝ) : ℝ := (deltaS / deltaI) * H
+noncomputable def entropicHarmonyGradient (deltaS deltaI H : ℝ) : ℝ := (deltaS / deltaI) * H
 end ME050
 
 namespace ME058
@@ -52,24 +53,24 @@ def cosmicDeviation (omegaEFMW omegaLCDM : ℝ) : ℝ := omegaEFMW - omegaLCDM
 end ME058
 
 namespace ME063
-def redQueenEquilibrium (alpha C K beta D gamma Ddot : ℝ) : Prop :=
+noncomputable def redQueenEquilibrium (alpha C K beta D gamma Ddot : ℝ) : Prop :=
   alpha * C * (1 - C / K) = beta * D - gamma * Ddot
 end ME063
 
 namespace ME075
-def emergentTimeIncrement (dTheta omegaRec : ℝ) : ℝ := dTheta / omegaRec
+noncomputable def emergentTimeIncrement (dTheta omegaRec : ℝ) : ℝ := dTheta / omegaRec
 end ME075
 
 namespace ME078
-def thixotropicViscosity (eta0 t tau : ℝ) : ℝ := eta0 * (1 - Real.exp (-t / tau))
+noncomputable def thixotropicViscosity (eta0 t tau : ℝ) : ℝ := eta0 * (1 - Real.exp (-t / tau))
 end ME078
 
 namespace ME079
-def neutronDecayDensity (rho0 t tauN : ℝ) : ℝ := rho0 * Real.exp (-t / tauN)
+noncomputable def neutronDecayDensity (rho0 t tauN : ℝ) : ℝ := rho0 * Real.exp (-t / tauN)
 end ME079
 
 namespace ME082
-def thixotropicRelaxationRHS (etaEq eta tau : ℝ) : ℝ := (etaEq - eta) / tau
+noncomputable def thixotropicRelaxationRHS (etaEq eta tau : ℝ) : ℝ := (etaEq - eta) / tau
 end ME082
 
 namespace ME083
@@ -89,7 +90,7 @@ def legalCoherence (evidence coherence traceability : ℝ) : ℝ := evidence * c
 end ME090
 
 namespace ME092
-def klTerm (p q : ℝ) : ℝ := p * Real.log (p / q)
+noncomputable def klTerm (p q : ℝ) : ℝ := p * Real.log (p / q)
 end ME092
 
 namespace ME093
