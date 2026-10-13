@@ -311,7 +311,7 @@ def catalog : List EquationSpec := [
     descriptor := "Primary experimental benchmark for validating or falsifying the proposed EFMW control-monitoring framework.", status := FormalStatus.sourceOnly, note := "Canonical source preserved pending mathematical specification." },
 ]
 
-theorem catalog_count : catalog.length = 102 := by native_decide
+theorem catalog_count : catalog.length = 102 := by decide
 
 def byNumber? (n : Nat) : Option EquationSpec := catalog.find? (fun e => e.number = n)
 
