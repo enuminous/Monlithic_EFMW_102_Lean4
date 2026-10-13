@@ -2,6 +2,8 @@ import Mathlib
 
 namespace Monolithic102
 
+noncomputable section
+
 /-!
 # Typed formalization layer
 
@@ -32,7 +34,8 @@ end ME042
 namespace ME043
 noncomputable def scalar46 : ℝ := ME041.phi ^ (46 : Nat)
 theorem scalar46_eq_scalar23_sq : scalar46 = ME042.scalar23 ^ 2 := by
-  simp [scalar46, ME042.scalar23, pow_mul]
+  change ME041.phi ^ (23 * 2) = (ME041.phi ^ 23) ^ 2
+  exact pow_mul ME041.phi 23 2
 end ME043
 
 namespace ME047
@@ -141,5 +144,7 @@ def accept (r : PilotResult) : Prop :=
   r.computeCost ≤ r.computeMax ∧
   r.replicated = true
 end ME102
+
+end
 
 end Monolithic102

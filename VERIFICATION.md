@@ -29,3 +29,5 @@ This archive remains a distinct real-valued definitions package. The separate
 [Monolithic-102-Zoo-Lean4](https://github.com/enuminous/Monolithic-102-Zoo-Lean4)
 contains the later discrete audit and its explicit pending-semantics ledger.
 The two representations are not silently identified or substituted for one another.
+
+The restored build exposed real-valued definitions requiring `noncomputable` and a power-specialization proof needing explicit arithmetic normalization. These are elaboration/proof repairs; the formulas and hypotheses are unchanged.
