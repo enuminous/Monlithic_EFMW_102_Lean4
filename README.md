@@ -49,7 +49,7 @@ Undefined constructs are deliberately not filled in by guesswork. They remain ma
 ## Build
 
 ```bash
-lake update
+lake exe cache get
 lake build
 ```
 
